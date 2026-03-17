@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HandController : MonoBehaviour
 {
@@ -34,15 +35,16 @@ public class HandController : MonoBehaviour
         isAttack = true;
         currentHand.anim.SetTrigger("Attack"); // 상태변수 Attack 트리거 발동
 
-        yield return new WaitForSecond(currentHand.attackDelayA); // 팔을 뻗는 시간 대기
+        yield return new WaitForSeconds(currentHand.attackDelayA); // 팔을 뻗는 시간 대기
         isSwing = true; // 팔 뻗는중
 
         // 공격 활성화 시점
+        StartCoroutine(HitCoroutine());
 
-        yield return new WaitForSecond(currentHand.attackDelayB); // 팔 접는 시간
+        yield return new WaitForSeconds(currentHand.attackDelayB); // 팔 접는 시간
         isSwing = false;
 
-        yield return new WaitForSecond(currentHand.attackDelay-currentHand.attackDelayA-currentHand.attackDelayB); // 전체 딜레이에서 팔을 뻗고 접는 시간을 빼고 나머지 시간을 기다려서 전체 딜레이만 대기할 수 있도록
+        yield return new WaitForSeconds(currentHand.attackDelay-currentHand.attackDelayA-currentHand.attackDelayB); // 전체 딜레이에서 팔을 뻗고 접는 시간을 빼고 나머지 시간을 기다려서 전체 딜레이만 대기할 수 있도록
         isAttack = false;
     }
 
@@ -53,7 +55,8 @@ public class HandController : MonoBehaviour
         {
             if (CheckObject())
             {
-                Debug.Log(hitIfo.transform.name);
+                isSwing = false;
+                Debug.Log(hitInfo.transform.name);
             }
             yield return null;
         }
