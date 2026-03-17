@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         applySpeed = walkSpeed;
         capsuleCollider = GetComponent<CapsuleCollider>();
 
+        //카메라 위치 초기화
         originPosY = theCamera.transform.localPosition.y; //카메라가 player 안에 포함되어잇기에 local사용
         applyCrouchPosY = originPosY;
     }
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
         CharacterRotation();
     }
 
+    //점프 시도
     private void TryCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //앉기 동작
     private void Crouch()
     {
         isCrouch = !isCrouch;
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(CrouchCoroutine());
     }
 
+    //부드러운 앉기 동작
     IEnumerator CrouchCoroutine()
     {
         float _posY = theCamera.transform.localPosition.y;
@@ -102,6 +106,7 @@ public class PlayerController : MonoBehaviour
         theCamera.transform.localPosition = new Vector3(0, applyCrouchPosY, 0); // 원하는 값에 맞추기
     }
 
+    //지면 체크
     private void IsGround()
     {
         //Physics.Raycast: 광선을 쏜다(현재 위치에서, 어디로(3차원공간에서 고정된down으로), 얼마만큼(캡슐의 공간값(y)의 절반)+여유)
@@ -109,6 +114,7 @@ public class PlayerController : MonoBehaviour
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y+0.1f);
     }
 
+    //점프 시도
     private void TryJump()
     {
         if(Input.GetKey(KeyCode.Space)&& isGround) //GetKeyDown은 누를때 한번만 GetKey는 누르고있으면 계속
@@ -117,6 +123,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //점프 동작
     private void Jump()
     {
         if(isCrouch) // 앉아있을경우에 점프하면 자동으로 앉기 해제
@@ -125,6 +132,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    //달리기 시도
     private void TryRun()
     {
         if (Input.GetKey(KeyCode.LeftShift)) // LeftShift를 누르고 있으면
@@ -137,6 +145,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //달리기 동작
     private void Running()
     {
         if(isCrouch) // 앉아있을경우에 달리기하면 자동 해제
@@ -145,12 +154,14 @@ public class PlayerController : MonoBehaviour
         applySpeed = runSpeed;
     }
 
+    //달리기 치소
     private void RunningCancel()
     {
         isRun = false;
         applySpeed = walkSpeed;
     }
 
+    //움직임 동작
     private void Move()
     {
         float _moveDirX = Input.GetAxisRaw("Horizontal");
@@ -164,6 +175,7 @@ public class PlayerController : MonoBehaviour
         myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
     }
 
+    //좌우 캐릭터 회전
     private void CharacterRotation()
     {
         float _yRotation = Input.GetAxisRaw("Mouse X");
@@ -172,6 +184,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //상하 카메라 회전
     private void CameraRotation()
     {
         float _xRotation = Input.GetAxisRaw("Mouse Y");
