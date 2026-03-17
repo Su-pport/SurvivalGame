@@ -7,8 +7,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed;
     private float applySpeed; // walk랑 run을 대입하는 형식으로 하나의 변수로 이용하게 함
 
+    [SerializeField] private float jumpForce;
+
     //상태 변수
     private bool isRun = false;//뛰는지 아닌지 확인
+    private bool isGround = true;
+
+    // 땅 착지 여부
+    private CapsuleCollider capsuleCollider;
 
     //민감도
     [SerializeField] private float LookSensitivity;
@@ -26,15 +32,39 @@ public class PlayerController : MonoBehaviour
     {
         myRigid = GetComponent<Rigidbody>();
         applySpeed = walkSpeed;
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        IsGround();
+        TryJump();
         TryRun();
         Move();
         CameraRotation();
         CharacterRotation();
+    }
+
+    private void IsGround()
+    {
+        //Physics.Raycast: 광선을 쏜다(현재 위치에서, 어디로(3차원공간에서 고정된down으로), 얼마만큼(캡슐의 공간값(y)의 절반)+여유)
+        //닿으면 true
+        isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y+0.1f);
+    }
+
+    private void TryJump()
+    {
+        if(Input.GetKey(KeyCode.Space)&& isGround) //GetKeyDown은 누를때 한번만 GetKey는 누르고있으면 계속
+        {
+            Jump();
+        }
+    }
+
+    private void Jump()
+    {
+        myRigid.linearVelocity = transform.up * jumpForce;
+        
     }
 
     private void TryRun()

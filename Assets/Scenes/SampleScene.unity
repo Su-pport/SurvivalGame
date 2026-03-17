@@ -514,6 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   walkSpeed: 3
   runSpeed: 10
+  jumpForce: 3
   LookSensitivity: 1
   CameraRotationLimit: 45
   theCamera: {fileID: 330585545}
