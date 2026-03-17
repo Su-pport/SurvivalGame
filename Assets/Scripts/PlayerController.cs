@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -81,8 +82,24 @@ public class PlayerController : MonoBehaviour
             applyCrouchPosY = originPosY;
         }
 
-        theCamera.transform.localPosition = new Vector3(theCamera.transform.localPosition.x, applyCrouchPosY, theCamera.transform.localPosition.z);
+        StartCoroutine(CrouchCoroutine());
+    }
 
+    IEnumerator CrouchCoroutine()
+    {
+        float _posY = theCamera.transform.localPosition.y;
+
+        int count = 0;
+        while(_posY != applyCrouchPosY)
+        {   
+            count++;
+            _posY = Mathf.Lerp(_posY, applyCrouchPosY, 0.3f);
+            theCamera.transform.localPosition = new Vector3(0, _posY, 0);
+            yield return null; // 1프레임 대기
+            if(count>15) // 적당히 하고 끝내기
+                break;
+        }        
+        theCamera.transform.localPosition = new Vector3(0, applyCrouchPosY, 0); // 원하는 값에 맞추기
     }
 
     private void IsGround()
@@ -102,6 +119,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        if(isCrouch) // 앉아있을경우에 점프하면 자동으로 앉기 해제
+            Crouch();
         myRigid.linearVelocity = transform.up * jumpForce;
         
     }
@@ -120,6 +139,8 @@ public class PlayerController : MonoBehaviour
 
     private void Running()
     {
+        if(isCrouch) // 앉아있을경우에 달리기하면 자동 해제
+            Crouch();
         isRun = true;
         applySpeed = runSpeed;
     }
