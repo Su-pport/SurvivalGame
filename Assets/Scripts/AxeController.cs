@@ -1,16 +1,18 @@
 using UnityEngine;
+using System.Collections;
 
-public class AxeController : MonoBehaviour
+public class AxeController : CloseWeponController
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+   protected override IEnumerator HitCoroutine()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        while (isSwing)
+        {
+            if (CheckObject())
+            {
+                isSwing = false;
+                Debug.Log(hitInfo.transform.name);
+            }
+            yield return null;
+        }
     }
 }
