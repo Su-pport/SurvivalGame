@@ -6,7 +6,7 @@ public abstract class CloseWeponController : MonoBehaviour
 {
     // 현재 장착된 Hand형 타입 무기
     //
-    [SerializeField] protected CloseWeapon currentHand;
+    [SerializeField] protected CloseWeapon currentCloseWeapon;
     
     //공격중
     protected bool isAttack = false;
@@ -16,10 +16,7 @@ public abstract class CloseWeponController : MonoBehaviour
 
     
     // Update is called once per frame
-    void Update()
-    {
-       TryAttack(); 
-    }
+    
 
     protected void TryAttack()
     {
@@ -35,18 +32,18 @@ public abstract class CloseWeponController : MonoBehaviour
     protected IEnumerator AttackCoroutine()
     {
         isAttack = true;
-        currentHand.anim.SetTrigger("Attack"); // 상태변수 Attack 트리거 발동
+        currentCloseWeapon.anim.SetTrigger("Attack"); // 상태변수 Attack 트리거 발동
 
-        yield return new WaitForSeconds(currentHand.attackDelayA); // 팔을 뻗는 시간 대기
+        yield return new WaitForSeconds(currentCloseWeapon.attackDelayA); // 팔을 뻗는 시간 대기
         isSwing = true; // 팔 뻗는중
 
         // 공격 활성화 시점
         StartCoroutine(HitCoroutine());
 
-        yield return new WaitForSeconds(currentHand.attackDelayB); // 팔 접는 시간
+        yield return new WaitForSeconds(currentCloseWeapon.attackDelayB); // 팔 접는 시간
         isSwing = false;
 
-        yield return new WaitForSeconds(currentHand.attackDelay-currentHand.attackDelayA-currentHand.attackDelayB); // 전체 딜레이에서 팔을 뻗고 접는 시간을 빼고 나머지 시간을 기다려서 전체 딜레이만 대기할 수 있도록
+        yield return new WaitForSeconds(currentCloseWeapon.attackDelay-currentCloseWeapon.attackDelayA-currentCloseWeapon.attackDelayB); // 전체 딜레이에서 팔을 뻗고 접는 시간을 빼고 나머지 시간을 기다려서 전체 딜레이만 대기할 수 있도록
         isAttack = false;
     }
 
@@ -55,12 +52,14 @@ public abstract class CloseWeponController : MonoBehaviour
 
     protected bool CheckObject()
     {
-        if(Physics.Raycast(transform.position, transform.forward, out hitInfo, currentHand.range))
+        if(Physics.Raycast(transform.position, transform.forward, out hitInfo, currentCloseWeapon.range))
         {
             return true;
         }
         return false;
     }
 
-    //public void HandChange(CloseWeapon _hand)
+    // 완성 함수이지만 자식이 추가 편집이 가능한 함수
+    //public virtual void Hand-> CloseWeaponChange(CloseWeapon _currentCloseWeapon)
+    //이 함수의 마지막 isActivate = true는 없앰
 }
