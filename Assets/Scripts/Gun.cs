@@ -12,7 +12,7 @@ public class Gun : MonoBehaviour
 
     public int damage; // 총의 데미지
 
-    public int reloadBulletCound; // 총의 재장전 탄약 수
+    public int reloadBulletCount; // 총의 재장전 탄약 수
     public int currentBulletCount; // 현재 총의 탄약 수
     public int maxBulletcount; // 총의 최대 탄약 수
     public int carryBulletCount; // 현재 소유하고있는 총알 개수

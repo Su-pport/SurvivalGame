@@ -663,6 +663,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e912e67a9efb2484188c551100af2705, type: 3}
   m_PrefabInstance: {fileID: 389148706}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &436368855 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7599901075121365024, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
+  m_PrefabInstance: {fileID: 1156941333}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &550728799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4312b593673c08e4696c2065ed224f08, type: 3}
@@ -882,14 +887,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708815108}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04792492, y: -0.7054809, z: -0.04792492, w: 0.7054809}
-  m_LocalPosition: {x: -2.8977015, y: 0.38480002, z: 0.41799903}
-  m_LocalScale: {x: 0.09999999, y: 0.10000001, z: 0.10000002}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00033, y: 0.00373, z: -0.000744}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 844820693}
-  m_Father: {fileID: 949804917}
-  m_LocalEulerAnglesHint: {x: -7.773, y: -90, z: 0}
+  m_Father: {fileID: 436368855}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &708815110
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -10939,6 +10944,7 @@ MonoBehaviour:
   LookSensitivity: 1
   CameraRotationLimit: 45
   theCamera: {fileID: 330585545}
+  theGunController: {fileID: 1976491018}
 --- !u!54 &902834699
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10986,7 +10992,7 @@ Animator:
   m_GameObject: {fileID: 949804916}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27a6597282872cc42a20e3c856694312, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11016,14 +11022,14 @@ MonoBehaviour:
   fireRate: 0.2
   reloadTime: 2
   damage: 30
-  reloadBulletCound: 30
-  currentBulletCount: 30
+  reloadBulletCount: 10
+  currentBulletCount: 10
   maxBulletcount: 0
-  carryBulletCount: 0
-  retroActionForce: 0
-  retroActionFineSightForce: 0
-  fineSightOriginPos: {x: 0, y: 0, z: 0}
-  anim: {fileID: 0}
+  carryBulletCount: 90
+  retroActionForce: -0.3
+  retroActionFineSightForce: -0.7
+  fineSightOriginPos: {x: -0.585, y: 0.33, z: -0.6}
+  anim: {fileID: 949804918}
   muzzleFlash: {fileID: 708815111}
   fireSound: {fileID: 8300000, guid: ac27f46ef171bcf47be694178314f6ff, type: 3}
 --- !u!1001 &1090941213
@@ -11162,7 +11168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.138
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11259,7 +11265,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7599901075121365024, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 708815109}
     m_AddedComponents:
@@ -11554,6 +11560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
   currentGun: {fileID: 949804919}
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!82 &1976491019
 AudioSource:
   m_ObjectHideFlags: 0

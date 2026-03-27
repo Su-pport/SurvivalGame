@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
     //필요 컴퓨넌트
     [SerializeField] private Camera theCamera;
     private Rigidbody myRigid;
+    [SerializeField] private GunController theGunController;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -150,6 +153,9 @@ public class PlayerController : MonoBehaviour
     {
         if(isCrouch) // 앉아있을경우에 달리기하면 자동 해제
             Crouch();
+
+        theGunController.CancelFineSight();
+
         isRun = true;
         applySpeed = runSpeed;
     }
