@@ -34,8 +34,8 @@ ModelImporter:
       name: Gun0_Idle
       takeName: Armature|ArmatureAction
       internalID: 4781951162920444690
-      firstFrame: 24
-      lastFrame: 54
+      firstFrame: 0
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
