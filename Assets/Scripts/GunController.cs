@@ -31,6 +31,8 @@ public class GunController : MonoBehaviour
 
     
     [SerializeField] private Camera theCam;
+    private Crosshair theCrosshair;
+    [SerializeField] private PlayerController thePlayerController;
 
     // 피격 이펙트
     [SerializeField] private GameObject hitEffectPrefab;
@@ -43,6 +45,7 @@ public class GunController : MonoBehaviour
     {
         originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
+        theCrosshair = FindFirstObjectByType<Crosshair>();
     }
 
     // Update is called once per frame
@@ -66,7 +69,7 @@ public class GunController : MonoBehaviour
     // 발사 시도
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && currentFireRate <= 0 && isReload == false)
+        if (Input.GetButton("Fire1") && currentFireRate <= 0 && isReload == false && !thePlayerController.GetIsRun())
         {
             Fire();
         }
@@ -90,6 +93,7 @@ public class GunController : MonoBehaviour
     // 발사 후 계산
     private void Shoot()
     {
+        theCrosshair.FireAnimation();
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate; // 연사 속도 재계산
         PlaySE(currentGun.fireSound);
@@ -104,7 +108,12 @@ public class GunController : MonoBehaviour
 
     private void Hit()
     {
-        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward, out hitinfo, currentGun.range))
+        if(Physics.Raycast(theCam.transform.position
+            , theCam.transform.forward + new Vector3(
+                    UnityEngine.Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy)
+                    , UnityEngine.Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy)
+                    , 0)
+            , out hitinfo, currentGun.range))
         {
             //맞은 위치의 포면이 바란보는 방향: hitinfo.Normal
             GameObject clone = Instantiate(hitEffectPrefab, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
@@ -183,6 +192,7 @@ public class GunController : MonoBehaviour
     {
         isFineSightMode = !isFineSightMode;
         currentGun.anim.SetBool("FineSightMode", isFineSightMode);
+        theCrosshair.FineSightAnimation(isFineSightMode);
 
         if (isFineSightMode)
         {
@@ -263,5 +273,10 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    public bool GetFineSightMode()
+    {
+        return isFineSightMode;
     }
 }

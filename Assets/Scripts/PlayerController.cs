@@ -14,9 +14,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce;
 
     //상태 변수
+    private bool isWalk = false;
     private bool isRun = false;//뛰는지 아닌지 확인
     private bool isCrouch = false;
     private bool isGround = true;
+
+    // 움직임 체크 변수
+    private Vector3 lastPos;
+
 
     // 앉을때 얼마나 앉을지 결정하는 변수
     [SerializeField] private float crouchPosY;
@@ -37,16 +42,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera theCamera;
     private Rigidbody myRigid;
     [SerializeField] private GunController theGunController;
+    private Crosshair theCrosshair;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         myRigid = GetComponent<Rigidbody>();
-        applySpeed = walkSpeed;
+       
         capsuleCollider = GetComponent<CapsuleCollider>();
+        // FindObjectOfType는 씬에 존재하는 오브젝트에서 컴포넌트를 찾아주는 함수인데, FindFirstObjectByType은 여러개가 있을 때 하나만 찾아주는 함수
+        // 권장하지 않는 방법이라고 해서 바꿈 위에잇는 건컨트롤러도 동일
+        theCrosshair = FindFirstObjectByType<Crosshair>(); 
 
-        //카메라 위치 초기화
+        //초기화
+        applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y; //카메라가 player 안에 포함되어잇기에 local사용
         applyCrouchPosY = originPosY;
     }
@@ -59,11 +69,12 @@ public class PlayerController : MonoBehaviour
         TryRun();
         TryCrouch();
         Move();
+        MoveCheck();
         CameraRotation();
         CharacterRotation();
     }
 
-    //점프 시도
+    //앉기 시도
     private void TryCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -76,6 +87,8 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
+        theCrosshair.CrouchingAnimation(isCrouch);
+
 
         if (isCrouch)
         {
@@ -115,6 +128,7 @@ public class PlayerController : MonoBehaviour
         //Physics.Raycast: 광선을 쏜다(현재 위치에서, 어디로(3차원공간에서 고정된down으로), 얼마만큼(캡슐의 공간값(y)의 절반)+여유)
         //닿으면 true
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y+0.1f);
+        theCrosshair.RunningAnimation(!isGround);
     }
 
     //점프 시도
@@ -157,14 +171,22 @@ public class PlayerController : MonoBehaviour
         theGunController.CancelFineSight();
 
         isRun = true;
+        theCrosshair.RunningAnimation(isRun);
         applySpeed = runSpeed;
     }
 
-    //달리기 치소
+    //달리기 취소
     private void RunningCancel()
     {
         isRun = false;
+        theCrosshair.RunningAnimation(isRun);
         applySpeed = walkSpeed;
+    }
+
+    //달리기 확인
+    public bool GetIsRun()
+    { 
+        return isRun; 
     }
 
     //움직임 동작
@@ -179,6 +201,17 @@ public class PlayerController : MonoBehaviour
         Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
 
         myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+    }
+
+    //움직임 체크
+    private void MoveCheck()
+    {
+        if(!isRun && !isCrouch && isGround)
+        {
+            isWalk = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
+            theCrosshair.WalkingAnimation(isWalk);
+            lastPos = transform.position;
+        }
     }
 
     //좌우 캐릭터 회전
