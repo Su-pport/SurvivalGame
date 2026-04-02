@@ -6238,6 +6238,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 22da15454f6b1b7479809517a5d28e2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676654837295469583, guid: 22da15454f6b1b7479809517a5d28e2f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -11842,7 +11846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1186647086
 Transform:
   m_ObjectHideFlags: 0
@@ -12665,6 +12669,7 @@ GameObject:
   - component: {fileID: 1976491017}
   - component: {fileID: 1976491018}
   - component: {fileID: 1976491019}
+  - component: {fileID: 1976491020}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -12697,7 +12702,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976491015}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a06c895ca6f4a3b49938e31cee82cd2f, type: 3}
   m_Name: 
@@ -12718,6 +12723,7 @@ MonoBehaviour:
   currentGun: {fileID: 949804919}
   isFineSightMode: 0
   theCam: {fileID: 330585545}
+  thePlayerController: {fileID: 0}
   hitEffectPrefab: {fileID: 3286791150985862312, guid: bbb1e59a9d469d641baf300d6cfe684a, type: 3}
 --- !u!82 &1976491019
 AudioSource:
@@ -12816,6 +12822,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1976491020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976491015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2375a5ec61ce7a54681e8c252da6282b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
+  currentWeaponType: GUN
+  changeWeaponDelayTime: 0.1
+  changeWeaponEndDelayTime: 0.1
+  guns:
+  - {fileID: 949804919}
+  hands:
+  - {fileID: 575980001}
+  theGunController: {fileID: 1976491018}
+  theHandController: {fileID: 1976491017}
 --- !u!1 &2006006776
 GameObject:
   m_ObjectHideFlags: 0

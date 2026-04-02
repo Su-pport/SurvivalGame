@@ -4,6 +4,7 @@ using System.Collections;
 // 미완성 클래스 = 추상 클래스
 public abstract class CloseWeponController : MonoBehaviour
 {
+    
     // 현재 장착된 Hand형 타입 무기
     //
     [SerializeField] protected CloseWeapon currentCloseWeapon;
@@ -59,7 +60,11 @@ public abstract class CloseWeponController : MonoBehaviour
         return false;
     }
 
+    
+
     // 완성 함수이지만 자식이 추가 편집이 가능한 함수
     //public virtual void Hand-> CloseWeaponChange(CloseWeapon _currentCloseWeapon)
     //이 함수의 마지막 isActivate = true는 없앰
+
+
 }

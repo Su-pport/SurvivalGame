@@ -25,9 +25,23 @@ public class HandController : CloseWeponController
         }
     }
 
-    // public override void CloseWeaponChange(CloseWeapon _closeWeapon)
-    // {
-    //     base.CloseWeaponChange(_closeWeapon); // 완성본 먼저 실행
-    //     isActivate = true; // 하고 나머지 실행
-    // }
-}
+    public void CloseWeaponChange(CloseWeapon _currentCloseWeapon)
+    {
+        if (WeaponManager.currentWeapon != null)
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
+
+        currentCloseWeapon = _currentCloseWeapon;
+        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
+
+        currentCloseWeapon.transform.localPosition = Vector3.zero;
+        currentCloseWeapon.gameObject.SetActive(true);
+        isActivate = true;
+    }
+
+        // public override void CloseWeaponChange(CloseWeapon _closeWeapon)
+        // {
+        //     base.CloseWeaponChange(_closeWeapon); // 완성본 먼저 실행
+        //     isActivate = true; // 하고 나머지 실행
+        // }
+    }

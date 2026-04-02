@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         //Physics.Raycast: 광선을 쏜다(현재 위치에서, 어디로(3차원공간에서 고정된down으로), 얼마만큼(캡슐의 공간값(y)의 절반)+여유)
         //닿으면 true
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y+0.1f);
-        theCrosshair.RunningAnimation(!isGround);
+        theCrosshair.Jump   ingAnimation(!isGround);
     }
 
     //점프 시도
