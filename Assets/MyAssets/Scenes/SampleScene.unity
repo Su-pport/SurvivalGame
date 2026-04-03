@@ -12670,6 +12670,7 @@ GameObject:
   - component: {fileID: 1976491018}
   - component: {fileID: 1976491019}
   - component: {fileID: 1976491020}
+  - component: {fileID: 1976491021}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -12723,7 +12724,7 @@ MonoBehaviour:
   currentGun: {fileID: 949804919}
   isFineSightMode: 0
   theCam: {fileID: 330585545}
-  thePlayerController: {fileID: 0}
+  thePlayerController: {fileID: 902834698}
   hitEffectPrefab: {fileID: 3286791150985862312, guid: bbb1e59a9d469d641baf300d6cfe684a, type: 3}
 --- !u!82 &1976491019
 AudioSource:
@@ -12843,6 +12844,22 @@ MonoBehaviour:
   - {fileID: 575980001}
   theGunController: {fileID: 1976491018}
   theHandController: {fileID: 1976491017}
+--- !u!114 &1976491021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976491015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd3c2c01dfd3d9449554db23a0b8af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSway
+  limitPos: {x: 0.2, y: 0.1, z: 0}
+  fineSightLimitPos: {x: 0.01, y: 0.005, z: 0}
+  smoothSway: {x: 0.01, y: 0.01, z: 0}
+  theGunController: {fileID: 1976491018}
 --- !u!1 &2006006776
 GameObject:
   m_ObjectHideFlags: 0
