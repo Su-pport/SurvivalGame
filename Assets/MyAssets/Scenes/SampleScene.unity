@@ -11472,7 +11472,7 @@ Transform:
   m_GameObject: {fileID: 902834693}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.7, y: 1, z: 32.3}
+  m_LocalPosition: {x: 30.052, y: 1, z: 32.516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11789,6 +11789,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676654837295469583, guid: 5e9a4b3d46a36fc469f20a1887c815aa, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -11878,7 +11882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1228001796
 Transform:
   m_ObjectHideFlags: 0
@@ -11888,7 +11892,7 @@ Transform:
   m_GameObject: {fileID: 1228001795}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.182, y: 1.808, z: -0.619}
+  m_LocalPosition: {x: -1.07, y: 1.61, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12394,7 +12398,7 @@ Animator:
   m_GameObject: {fileID: 1808035132}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f912d376d741190449995c44b775225d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12667,6 +12671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976491016}
   - component: {fileID: 1976491017}
+  - component: {fileID: 1976491022}
   - component: {fileID: 1976491018}
   - component: {fileID: 1976491019}
   - component: {fileID: 1976491020}
@@ -12708,7 +12713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06c895ca6f4a3b49938e31cee82cd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandController
-  currentCloseWeapon: {fileID: 0}
+  currentCloseWeapon: {fileID: 575980001}
 --- !u!114 &1976491018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12842,8 +12847,11 @@ MonoBehaviour:
   - {fileID: 949804919}
   hands:
   - {fileID: 575980001}
+  axes:
+  - {fileID: 1808035133}
   theGunController: {fileID: 1976491018}
   theHandController: {fileID: 1976491017}
+  theAxeController: {fileID: 1976491022}
 --- !u!114 &1976491021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12856,10 +12864,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd3c2c01dfd3d9449554db23a0b8af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSway
-  limitPos: {x: 0.2, y: 0.1, z: 0}
-  fineSightLimitPos: {x: 0.01, y: 0.005, z: 0}
-  smoothSway: {x: 0.01, y: 0.01, z: 0}
+  limitPos: {x: 0.18, y: 0.1, z: 0}
+  fineSightLimitPos: {x: 0.005, y: 0.005, z: 0}
+  smoothSway: {x: 0.05, y: 0.03, z: 0}
   theGunController: {fileID: 1976491018}
+--- !u!114 &1976491022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976491015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7c3c19e6fc6de49baad360df21ef1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AxeController
+  currentCloseWeapon: {fileID: 1808035133}
 --- !u!1 &2006006776
 GameObject:
   m_ObjectHideFlags: 0

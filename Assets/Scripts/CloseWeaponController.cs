@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-// 미완성 클래스 = 추상 클래스
+// 미완성 클래스 = 추상 클래스 -> 컴포넌트로 추가 안됨 -> update()함수 사용불가
 public abstract class CloseWeponController : MonoBehaviour
 {
     
+
+
     // 현재 장착된 Hand형 타입 무기
     //
     [SerializeField] protected CloseWeapon currentCloseWeapon;
@@ -60,11 +62,18 @@ public abstract class CloseWeponController : MonoBehaviour
         return false;
     }
 
-    
-
     // 완성 함수이지만 자식이 추가 편집이 가능한 함수
-    //public virtual void Hand-> CloseWeaponChange(CloseWeapon _currentCloseWeapon)
-    //이 함수의 마지막 isActivate = true는 없앰
+    public virtual void CloseWeaponChange(CloseWeapon _closeWeapon)
+    {
+        if (WeaponManager.currentWeapon != null)
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
 
+        currentCloseWeapon = _closeWeapon;
+        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
+
+        currentCloseWeapon.transform.localPosition = Vector3.zero;
+        currentCloseWeapon.gameObject.SetActive(true);
+    }
 
 }

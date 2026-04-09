@@ -1,20 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class AxeController : CloseWeponController
+public class PickaxeController : CloseWeponController
 {
     // 활성화 여부
     public static bool isActivate = true;
 
     void Start()
     {
-        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
+
     }
 
     void Update()
     {
-        if(isActivate)
+        if (isActivate)
             TryAttack();
     }
 

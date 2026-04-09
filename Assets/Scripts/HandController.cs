@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HandController : CloseWeponController
 {
-
+    // 활성화 여부
     public static bool isActivate = false;
 
     void Update()
@@ -25,23 +25,13 @@ public class HandController : CloseWeponController
         }
     }
 
-    public void CloseWeaponChange(CloseWeapon _currentCloseWeapon)
+
+    public override void CloseWeaponChange(CloseWeapon _closeWeapon)
     {
-        if (WeaponManager.currentWeapon != null)
-            WeaponManager.currentWeapon.gameObject.SetActive(false);
-
-        currentCloseWeapon = _currentCloseWeapon;
-        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
-
-        currentCloseWeapon.transform.localPosition = Vector3.zero;
-        currentCloseWeapon.gameObject.SetActive(true);
-        isActivate = true;
+        base.CloseWeaponChange(_closeWeapon); // 완성본 먼저 실행
+        isActivate = true; // 하고 나머지 실행
     }
 
-        // public override void CloseWeaponChange(CloseWeapon _closeWeapon)
-        // {
-        //     base.CloseWeaponChange(_closeWeapon); // 완성본 먼저 실행
-        //     isActivate = true; // 하고 나머지 실행
-        // }
-    }
+
+
+}

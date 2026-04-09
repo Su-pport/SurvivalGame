@@ -7,7 +7,7 @@ using UnityEngine.SubsystemsImplementation;
 public class GunController : MonoBehaviour
 {
     //활성화 여부
-    public static bool isActivate = true;
+    public static bool isActivate = false;
 
     // 현재 장착된 총
     [SerializeField] private Gun currentGun;
@@ -49,8 +49,7 @@ public class GunController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         theCrosshair = FindFirstObjectByType<Crosshair>();
 
-        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentGun.anim;
+        
     }
 
     // Update is called once per frame
